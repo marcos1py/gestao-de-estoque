@@ -1,0 +1,30 @@
+.titulo-produto {
+    margin-top: 20px;
+
+    flex-shrink: 0;
+    color: #11A9FF;
+    font-family: Righteous;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.navbar {
+    background-color: #000B21;
+    
+}
+
+.hover:hover {
+    background-color: #11a8ff3b;
+}
+
+body {
+    background-color: #f0fdfd;
+}
+
+.btnaaaa {
+    margin-top: 20px;
+}
+.separar {
+    
+    margin-top: 20px;
+}

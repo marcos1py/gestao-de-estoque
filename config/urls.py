@@ -7,8 +7,8 @@ urlpatterns = [
     path('estoque/', include('estoque.urls')),
     path('admin/', admin.site.urls),
     
-    path('api/', include('estoque.urls')),  # Inclua as URLs do aplicativo 'estoque'
-    path('api/', include('produto.urls')),  # Inclua as URLs do aplicativo 'produto'
+    #path('api/', include('estoque.urls')),  # Inclua as URLs do aplicativo 'estoque'
+    #path('api/', include('produto.urls')),  # Inclua as URLs do aplicativo 'produto'
     path('api/', include('authentication.urls')),  # Inclua as URLs do aplicativo 'produto'
     
 

@@ -28,3 +28,22 @@ body {
     
     margin-top: 20px;
 }
+.form-control {
+    margin:10px;
+}
+body {
+  margin-top: 60px;
+}
+
+.ok {
+  color: green;
+}
+
+.no {
+  color: red;
+}
+
+span.required:after {
+  content: "*";
+  color: red;
+}

@@ -3,16 +3,16 @@
 
 
 {% block content %}
-<h2 class="separar"> <ti class="titulo-produto">Estoque Entrada</ti>   
+
+<h2 class='separar'><ti class="titulo-produto">Produtos</ti></h2>
+<div class="page-header">
   <span class="pull-right">
     <a href="{% url 'produto:produto_add' %}"  >
-      <button type="button" class="btn btn-primary">
-        <span class="fa fa-plus"></span> Adicionar
+      <button type="button"  class="btn btn-primary">
+        <span style=class="fa fa-plus"></span> Adicionar
       </button>
     </a>
   </span>
-</h2>
-
 
   {% if objects_list %}
 

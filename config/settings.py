@@ -41,21 +41,25 @@ INSTALLED_APPS = [
     'produto',
     'rest_framework',
     'rest_framework.authtoken',
-    'djoser',  # Para gerenciamento de usuários (opcional)
+    'djoser',  
     'estoque', 
-    'authentication',
+    #'authentication',
     'widget_tweaks',
     'bootstrapform',
 ]
 
+# Configuração do Django Rest Framework
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-
-
-        # Outras classes de autenticação, se houver
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
     ],
-    # Outras configurações do Django Rest Framework
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+# Configuração do Bootstrap
+BOOTSTRAP4 = {
+    'include_jquery': True,
 }
 DJOSER = {
     'LOGIN_FIELD': 'email',  # Configure o campo de login conforme sua implementação
@@ -134,6 +138,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+# settings.py
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -144,3 +154,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

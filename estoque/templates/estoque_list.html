@@ -1,19 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h2 class="separar"> <ti class="titulo-produto">Estoque Saída</ti>   
+    
+<h2 class="separar"> <ti class="titulo-produto">{{titulo}}</ti>   
   <span class="pull-right">
-    <a href="{% url 'estoque:estoque_saida_add' %}">
+    <a href="{% url url_add %}">
       <button type="button" class="btn btn-primary">
         <span class="fa fa-plus"></span> Adicionar
       </button>
     </a>
   </span>
 </h2>
-
 {% if object_list %}
-  <table class="table table-striped">
+  <table class="table table-striped" style="margin-top:20px">
     <thead>
       <tr>
         <th>Item</th>

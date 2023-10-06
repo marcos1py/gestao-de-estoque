@@ -1,24 +1,18 @@
-# inventory/views.py
+from django.forms import inlineformset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, resolve_url
+from produto.models import Produto
+from .models import Estoque, EstoqueEntrada, EstoqueSaida, EstoqueItens
+from .forms import EstoqueForm, EstoqueItensForm
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import Estoque, EstoqueItens
 from .serializers import EstoqueSerializer, EstoqueItensSerializer
-from django.shortcuts import render, resolve_url
-from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
-from .forms import EstoqueForm, EstoqueItensForm
-from produto.models import Produto
-from .models import Estoque, EstoqueEntrada, EstoqueSaida, EstoqueItens
-from .models import EstoqueEntrada, EstoqueSaida, EstoqueItens
-class EstoqueListCreateView(generics.ListCreateAPIView):
-    queryset = Estoque.objects.all()
-    serializer_class = EstoqueSerializer
-    #permission_classes = [IsAuthenticated]
 
-class EstoqueDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Estoque.objects.all()
-    serializer_class = EstoqueSerializer
-    #permission_classes = [IsAuthenticated]
+from django.contrib.auth.decorators import login_required
+
+
+
 
 def dar_baixa_estoque(form):
     # Pega os produtos a partir da instância do formulário (Estoque).
@@ -29,23 +23,20 @@ def dar_baixa_estoque(form):
         produto.save()
     print('Estoque atualizado com sucesso.')
 
-class EstoqueItensListCreateView(generics.ListCreateAPIView):
-    queryset = EstoqueItens.objects.all()
-    serializer_class = EstoqueItensSerializer
-    #permission_classes = [IsAuthenticated]
-
-class EstoqueItensDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = EstoqueItens.objects.all()
-    serializer_class = EstoqueItensSerializer
-    #permission_classes = [IsAuthenticated]
 
 
-#
+
+    
 def estoque_entrada_list(request):
-    template_name = 'estoque_entrada_list.html'
+    template_name = 'estoque_list.html'
     objects = EstoqueEntrada.objects.all()
-    context = {'object_list': objects}
+    context = {
+        'object_list': objects,
+        'titulo': 'Entrada',
+        'url_add': 'estoque:estoque_entrada_add'
+    }
     return render(request, template_name, context)
+
 
 def estoque_entrada_detail(request, pk):
     template_name = 'estoque_entrada_detail.html'
@@ -53,14 +44,25 @@ def estoque_entrada_detail(request, pk):
     context = {'object': obj}
     return render(request, template_name, context)
 
-def estoque_entrada_add(request):
-    template_name = 'estoque_entrada_form.html'
+
+def dar_baixa_estoque(form):
+    # Pega os produtos a partir da instância do formulário (Estoque).
+    produtos = form.estoques.all()
+    for item in produtos:
+        produto = Produto.objects.get(pk=item.produto.pk)
+        produto.estoque = item.saldo
+        produto.save()
+    print('Estoque atualizado com sucesso.')
+
+
+def estoque_add(request, template_name, movimento, url):
     estoque_form = Estoque()
     item_estoque_formset = inlineformset_factory(
-        EstoqueEntrada,
+        Estoque,
         EstoqueItens,
         form=EstoqueItensForm,
         extra=0,
+        can_delete=False,
         min_num=1,
         validate_min=True,
     )
@@ -73,22 +75,38 @@ def estoque_entrada_add(request):
         )
         if form.is_valid() and formset.is_valid():
             form = form.save()
+            form.movimento = movimento
+            form.save()
             formset.save()
             dar_baixa_estoque(form)
-            url = 'estoque:estoque_entrada_detail'
-            return HttpResponseRedirect(resolve_url(url, form.pk))
+            return {'pk': form.pk}
     else:
         form = EstoqueForm(instance=estoque_form, prefix='main')
         formset = item_estoque_formset(instance=estoque_form, prefix='estoque')
-
     context = {'form': form, 'formset': formset}
+    return context
+
+
+def estoque_entrada_add(request):
+    template_name = 'estoque_entrada_form.html'
+    movimento = 'e'
+    url = 'estoque:estoque_entrada_detail'
+    context = estoque_add(request, template_name, movimento, url)
+    if context.get('pk'):
+        return HttpResponseRedirect(resolve_url(url, context.get('pk')))
     return render(request, template_name, context)
+
 
 def estoque_saida_list(request):
-    template_name = 'estoque_saida_list.html'
+    template_name = 'estoque_list.html'
     objects = EstoqueSaida.objects.all()
-    context = {'object_list': objects}
+    context = {
+        'object_list': objects,
+        'titulo': 'Saída',
+        'url_add': 'estoque:estoque_saida_add'
+    }
     return render(request, template_name, context)
+
 
 def estoque_saida_detail(request, pk):
     template_name = 'estoque_saida_detail.html'
@@ -99,31 +117,9 @@ def estoque_saida_detail(request, pk):
 
 def estoque_saida_add(request):
     template_name = 'estoque_saida_form.html'
-    estoque_form = Estoque()
-    item_estoque_formset = inlineformset_factory(
-        EstoqueSaida,
-        EstoqueItens,
-        form=EstoqueItensForm,
-        extra=0,
-        min_num=1,
-        validate_min=True,
-    )
-    if request.method == 'POST':
-        form = EstoqueForm(request.POST, instance=estoque_form, prefix='main')
-        formset = item_estoque_formset(
-            request.POST,
-            instance=estoque_form,
-            prefix='estoque'
-        )
-        if form.is_valid() and formset.is_valid():
-            form = form.save()
-            formset.save()
-            dar_baixa_estoque(form)
-            url = 'estoque:estoque_saida_detail'
-            return HttpResponseRedirect(resolve_url(url, form.pk))
-    else:
-        form = EstoqueForm(instance=estoque_form, prefix='main')
-        formset = item_estoque_formset(instance=estoque_form, prefix='estoque')
-
-    context = {'form': form, 'formset': formset}
+    movimento = 's'
+    url = 'estoque:estoque_saida_detail'
+    context = estoque_add(request, template_name, movimento, url)
+    if context.get('pk'):
+        return HttpResponseRedirect(resolve_url(url, context.get('pk')))
     return render(request, template_name, context)

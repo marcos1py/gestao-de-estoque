@@ -1,23 +1,14 @@
-# produto/views.py
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 from .models import Produto
-from .serializers import ProdutoSerializer
 from django.shortcuts import render
 from .forms import ProdutoForm
 from django.views.generic import CreateView, UpdateView
-	
-from django.http import JsonResponse
-class ProdutoListCreateView(generics.ListCreateAPIView):
-    queryset = Produto.objects.all()
-    serializer_class = ProdutoSerializer
-    #permission_classes = [IsAuthenticated]
-
-class ProdutoDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Produto.objects.all()
-    serializer_class = ProdutoSerializer
-    #permission_classes = [IsAuthenticated]
-    
+from django.http import HttpResponseRedirect, JsonResponse
+from django.contrib import messages
+from django.db.models import Q
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import render
+from django.urls import reverse
+from django.views.generic import CreateView, ListView, UpdateView
 def produto_list(request):
     template_name = "produto_list.html"
     objects = Produto.objects.all()
@@ -33,10 +24,18 @@ def produto_detail(request, pk):
     }
     return render(request, template_name, context)
 
-
 def produto_add(request):
-    template_name = 'produto_form.html'
-    return render(request, template_name)
+    form = ProdutoForm(request.POST or None)
+    template_name = 'produto_form2.html'
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('produto:produto_list'))
+
+    context = {'form': form}
+    return render(request, template_name, context)
+
 
 
 class ProdutoCreate(CreateView):

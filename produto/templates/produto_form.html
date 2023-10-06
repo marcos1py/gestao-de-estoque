@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% load widget_tweaks %}
-
+{% load static %}
 {% block content %}
-
+<h2 class='separar'><ti class="titulo-produto">Add Produto </ti> </h2>
 <form method="POST" novalidate>
   {% csrf_token %}
   {% for field in form.visible_fields %}

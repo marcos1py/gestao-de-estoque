@@ -9,6 +9,7 @@
     line-height: normal;
 }
 .navbar {
+    margin-bottom: 20px;
     background-color: #000B21;
     
 }
@@ -21,19 +22,7 @@ body {
     background-color: #f0fdfd;
 }
 
-.btnaaaa {
-    margin-top: 20px;
-}
-.separar {
-    
-    margin-top: 20px;
-}
-.form-control {
-    margin:10px;
-}
-body {
-  margin-top: 60px;
-}
+
 
 .ok {
   color: green;

@@ -36,3 +36,19 @@ span.required:after {
   content: "*";
   color: red;
 }
+
+.bordinha {
+  border-radius: 20px;
+}
+.sub-titulo {
+
+  flex-shrink: 0;
+  color: #11A9FF;
+  font-family: Righteous;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+body {
+  color: #830000;
+}

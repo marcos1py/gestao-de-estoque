@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'estoque', 
     #'authentication',
     'widget_tweaks',
+    'dashbord', 
     'bootstrapform',
 ]
 

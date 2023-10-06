@@ -27,7 +27,6 @@ def produto_detail(request, pk):
 def produto_add(request):
     form = ProdutoForm(request.POST or None)
     template_name = 'produto_form2.html'
-
     if request.method == 'POST':
         if form.is_valid():
             form.save()

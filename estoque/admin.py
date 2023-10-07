@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import EstoqueEntrada, EstoqueSaida, EstoqueItens
 
+admin.site.register(EstoqueItens)
 
 class EstoqueItensInline(admin.TabularInline):
     model = EstoqueItens

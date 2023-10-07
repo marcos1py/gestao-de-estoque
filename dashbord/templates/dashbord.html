@@ -3,8 +3,10 @@
 
 {% load static %}
 {% block content %}
-<body id="page-top">
 
+    
+<body id="page-top">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -19,27 +21,21 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <!-- <h4 > <ti class="titulo-produto">Dashboard {{produto}}</ti></h4> -->
-                    </div>
-
                     <!-- Content Row -->
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="sub-titulo text-xs font-weight-bold text-primary text-uppercase text-center mb-1">Produtos em destaque</div>
+                            <div class="sub-titulo text-xs font-weight-bold   text-uppercase text-center mb-1">Produtos em destaque</div>
                             <div class="card bordinha border-dark shadow h-700 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center "  style="color: #00ff6e;">
                                         <div class="col mr-2" >       
 
-                                            <div class="h5 text-center mb-0 font-weight-bold">{{produto}}</div>
+                                            <div class="h5 text-center mb-0 font-weight-bold">Coca</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-medal fa-2x "></i>
+                                            <i style="color: #00ff6e;" class="fas fa-medal fa-2x "></i>
                                         </div>
                                     </div>
                                 </div>
@@ -47,16 +43,16 @@
                         </div>
                         
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="sub-titulo text-xs font-weight-bold text-primary text-uppercase text-center mb-1">Faturamento Do Mes</div>
+                            <div class="sub-titulo text-xs font-weight-bold   text-uppercase text-center mb-1">Faturamento Do Mes</div>
                             <div class="card bordinha border-dark shadow h-700 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center" style="color: #00ff6e;">
                                         <div class="col mr-2">       
 
-                                            <div class="h5 mb-0 font-weight-bold ">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold  text-center">$80,000</div>
                                         </div>
                                         <div class="col-auto "  >
-                                            <i class="fas fa-money fa-2x text-gray-300"></i>
+                                            <i  class="fas fa-money fa-2x " style="color: #00ff6e;"></i>
                                             
                                         </div>
                                     </div>
@@ -66,30 +62,31 @@
 
                         
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="sub-titulo text-xs font-weight-bold text-primary text-uppercase text-center mb-1">Despesas Do Mes</div>
+                            <div class="sub-titulo text-xs font-weight-bold   text-uppercase text-center mb-1">Despesas Do Mes</div>
                             <div class="card bordinha border-dark shadow h-700 py-2">
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center" >
+                                    <div class="row no-gutters align-items-center "style="color: #830000;" >
                                         <div class="col mr-2">       
 
-                                            <div class="h5 mb-0 font-weight-bold ">$40,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-center ">$40.000</div>
                                         </div>
                                         <div class="col-auto "  >
-                                            <i class="fas fa-dollar  fa-2x text-gray-300"></i>
+                                            <i class="fas fa-dollar  fa-2x "></i>
                                             
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="sub-titulo text-xs font-weight-bold text-primary text-uppercase text-center mb-1">Produtos menos vendidos</div>
+                            <div class="sub-titulo text-xs font-weight-bold   text-uppercase text-center mb-1">Produto acabando</div>
                             <div class="card bordinha border-dark shadow h-700 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center " style="color: #830000;">
                                         <div class="col mr-2" >       
 
-                                            <div class="h5 text-center mb-0 font-weight-bold">{{produto}}</div>
+                                            <div class="h5 text-center mb-0 font-weight-bold">Agua</div>
                                         </div>
                                         <div class="col-auto">
                                             
@@ -99,88 +96,107 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                     </div>
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-1 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+                <div class="container">
+        <div class="row">
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-6 col-md-12">
+                <div class="card shadow">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+                        <div class="mudaDeCorBranco sub-titulo text-xs text-uppercase text-center mb-1">Faturamento Anual</div>
                     </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="card shadow">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
+                        <div class="mudaDeCorBranco sub-titulo text-xs text-uppercase text-center mb-1">Produtos em destaque</div>
+                    </div>
+
+                    <div id="donut-chart"></div>
                 </div>
             </div>
         </div>
     </div>
-
+        </div>
+    </div>
 </body>
 {% endblock content %}
+{% block js %}
+    <script>
+        var chart = bb.generate({
+            data: {
+            columns: [
+                ["{{produto1}}", 11],
+                ["{{produto2}}", 2],
+                ["{{produto3}}", 3],
+            ],
+            type: "donut",
+            onclick: function (d, i) {
+                console.log("onclick", d, i);
+            },
+            onover: function (d, i) {
+                console.log("onover", d, i);
+            },
+            onout: function (d, i) {
+                console.log("onout", d, i);
+            },
+            },
+
+            bindto: "#donut-chart",
+        });
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro",
+            ],
+            datasets: [
+                {   
+                    label: "2023",
+                    data: [1000, 1500, 1200, 2000, 2500, 1800, 2200, 3000, 2800, 3500, 4000, 3800],
+                    borderColor: "rgba(153, 205, 51, 1)", // Cor da linha
+                    borderWidth: 3, // Largura da linha
+                    fill: false, // Não preencher a área abaixo da linha
+                },
+            ],
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false, // Remover a legenda do gráfico de linha
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+</script>
+{% endblock js %}

@@ -49,6 +49,6 @@ span.required:after {
   font-weight: 400;
   line-height: normal;
 }
-body {
-  color: #830000;
+.mudaDeCorBranco {
+  color: #fff;
 }

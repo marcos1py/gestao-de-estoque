@@ -68,4 +68,4 @@ class EstoqueItens(models.Model):
         ordering = ('pk',)
 
     def __str__(self):
-        return '{} - {} - {}'.format(self.pk, self.estoque.pk, self.produto)
+        return f'{self.produto} - {self.estoque.movimento}'

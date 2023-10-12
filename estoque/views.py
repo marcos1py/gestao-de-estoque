@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
-
+@login_required
 def dar_baixa_estoque(form):
     # Pega os produtos a partir da instância do formulário (Estoque).
     produtos = form.estoques.all()
@@ -26,7 +26,7 @@ def dar_baixa_estoque(form):
 
 
 
-    
+@login_required
 def estoque_entrada_list(request):
     template_name = 'estoque_list.html'
     objects = EstoqueEntrada.objects.all()
@@ -37,14 +37,14 @@ def estoque_entrada_list(request):
     }
     return render(request, template_name, context)
 
-
+@login_required
 def estoque_entrada_detail(request, pk):
     template_name = 'estoque_entrada_detail.html'
     obj = EstoqueEntrada.objects.get(pk=pk)
     context = {'object': obj}
     return render(request, template_name, context)
 
-
+@login_required
 def dar_baixa_estoque(form):
     # Pega os produtos a partir da instância do formulário (Estoque).
     produtos = form.estoques.all()
@@ -54,7 +54,7 @@ def dar_baixa_estoque(form):
         produto.save()
     print('Estoque atualizado com sucesso.')
 
-
+@login_required
 def estoque_add(request, template_name, movimento, url):
     estoque_form = Estoque()
     item_estoque_formset = inlineformset_factory(
@@ -86,7 +86,7 @@ def estoque_add(request, template_name, movimento, url):
     context = {'form': form, 'formset': formset}
     return context
 
-
+@login_required
 def estoque_entrada_add(request):
     template_name = 'estoque_entrada_form.html'
     movimento = 'e'
@@ -96,7 +96,7 @@ def estoque_entrada_add(request):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
     return render(request, template_name, context)
 
-
+@login_required
 def estoque_saida_list(request):
     template_name = 'estoque_list.html'
     objects = EstoqueSaida.objects.all()
@@ -107,14 +107,14 @@ def estoque_saida_list(request):
     }
     return render(request, template_name, context)
 
-
+@login_required
 def estoque_saida_detail(request, pk):
     template_name = 'estoque_saida_detail.html'
     obj = EstoqueSaida.objects.get(pk=pk)
     context = {'object': obj}
     return render(request, template_name, context)
 
-
+@login_required
 def estoque_saida_add(request):
     template_name = 'estoque_saida_form.html'
     movimento = 's'

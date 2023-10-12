@@ -1,0 +1,20 @@
+{% block content %}
+<div class="testando">
+    <div class="page">
+        <form action="{{ form_action }}" method="POST" class="formLogin">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <p>Digite os seus dados de acesso no campo abaixo.</p>
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {{ field.errors }}
+                {% if field.help_text %}
+                    <p class="help-text">{{ field.help_text }}</p>
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Acessar</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

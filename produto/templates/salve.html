@@ -5,37 +5,26 @@
 
 
 {% block content %}
-<div>
-  <h2 class="separar"> <ti class="titulo-produto">Produtos</ti>  
-</div>
-<div class="container-pesquisa">
-  <div class="row">
-    <div class="col-md-6">
-      <form action="." method="GET" class="form-inline">
-        <div class="input-group">
-          <input class="form-control" type="search" placeholder="Pesquisar" id="search" name="search" aria-label="Search" style="border-right: none;">
-          <div class="input-group-append">
-            <button type="submit" class="input-group-text" style="background-color: #FFF"><i class="fas fa-search"></i></button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="col-md-6 text-right">
-      <a href="{% url 'produto:produto_add' %}">
-        <button type="button" class="btn btn-primary">
-          <span class="fa fa-plus"></span> Adicionar
-        </button>
-      </a>
-    </div>
+<h2 class="separar"> <ti class="titulo-produto">Produtos</ti>  
+  <span class="pull-right">
+    <a href="{% url 'produto:produto_add' %}"  >
+      <button type="button" class="btn btn-primary">
+        <span class="fa fa-plus"></span> Adicionar
+      </button>
+    </a>
+  </span>
+</h2>
+<div class="row">
+  <div class="col-sm-6">
+    <form action="." method="GET" class="form-inline">
+      <input type="text" id="search" name="search" class="form-control" placeholder="Busca">
+      <input type="submit" class="btn btn-primary" style="margin-left: 10px;" value="OK">
+    </form>
   </div>
 </div>
-
-
-
-
   {% if objects_list %}
 
-    <table class="table borda-cor-preta"style="margin-top:20px">
+    <table class="table "style="margin-top:20px">
       <thead>
         <tr>
           <th>NCM</th>
@@ -52,7 +41,7 @@
         {% for object in objects_list %}
           
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal{{ object.produto}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ object.produto}}" aria-hidden="true" style="border: #000b21;">
+          <div class="modal fade" id="exampleModal{{ object.produto}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ object.produto}}" aria-hidden="true">
 
             <div class="modal-dialog" role="document">
               <div class="modal-content">

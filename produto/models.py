@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse_lazy
-
+from django.conf import settings
 
 class Produto(models.Model):
+    funcionario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=settings.AUTH_USER_MODEL) 
     ncm = models.CharField('NCM', max_length=8)
     produto = models.CharField(max_length=100, unique=True)
     preco = models.DecimalField('preço', max_digits=7, decimal_places=2)

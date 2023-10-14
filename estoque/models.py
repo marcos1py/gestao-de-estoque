@@ -1,11 +1,11 @@
-from django.contrib.auth.models import User
+from empresas.models import User  # Import your custom User model
 from django.db import models
 from django.urls import reverse_lazy
+
 from core.models import TimeStampedModel
 from produto.models import Produto
-from .managers import EstoqueEntradaManager, EstoqueSaidaManager
 
-from django.conf import settings
+from .managers import EstoqueEntradaManager, EstoqueSaidaManager
 
 MOVIMENTO = (
     ('e', 'entrada'),
@@ -14,18 +14,22 @@ MOVIMENTO = (
 
 
 class Estoque(TimeStampedModel):
-    funcionario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=settings.AUTH_USER_MODEL)
+    funcionario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     nf = models.PositiveIntegerField('nota fiscal', null=True, blank=True)
-    movimento = models.CharField(max_length=1, choices=MOVIMENTO)
+    movimento = models.CharField(max_length=1, choices=MOVIMENTO, blank=True)
 
     class Meta:
         ordering = ('-created',)
 
     def __str__(self):
-        return '{} - {} - {}'.format(self.pk, self.nf, self.created.strftime('%d-%m-%Y'))
+        if self.nf:
+            return '{} - {} - {}'.format(self.pk, self.nf, self.created.strftime('%d-%m-%Y'))
+        return '{} --- {}'.format(self.pk, self.created.strftime('%d-%m-%Y'))
 
     def nf_formated(self):
-        return str(self.nf).zfill(3)
+        if self.nf:
+            return str(self.nf).zfill(3)
+        return '---'
 
 
 class EstoqueEntrada(Estoque):
@@ -36,9 +40,9 @@ class EstoqueEntrada(Estoque):
         proxy = True
         verbose_name = 'estoque entrada'
         verbose_name_plural = 'estoque entrada'
-
+        
     def get_absolute_url(self):
-        return reverse_lazy('estoque:estoque_entrada_detail', kwargs={'pk': self.pk})
+        return reverse_lazy('estoque:estoque_detail', kwargs={'pk': self.pk})
 
 
 class EstoqueSaida(Estoque):
@@ -51,7 +55,7 @@ class EstoqueSaida(Estoque):
         verbose_name_plural = 'estoque saída'
 
     def get_absolute_url(self):
-        return reverse_lazy('estoque:estoque_saida_detail', kwargs={'pk': self.pk})
+        return reverse_lazy('estoque:estoque_detail', kwargs={'pk': self.pk})
 
 
 class EstoqueItens(models.Model):
@@ -68,4 +72,28 @@ class EstoqueItens(models.Model):
         ordering = ('pk',)
 
     def __str__(self):
-        return f'{self.produto} - {self.estoque.movimento}'
+        return '{} - {} - {}'.format(self.pk, self.estoque.pk, self.produto)
+
+
+class ProtocoloEntrega(TimeStampedModel):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    estoque_atualizado = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse_lazy('estoque:protocolo_de_entrega_detail', kwargs={'pk': self.pk})
+
+
+class ProtocoloEntregaItens(models.Model):
+    protocolo_entrega = models.ForeignKey(
+        ProtocoloEntrega,
+        on_delete=models.CASCADE,
+        related_name='protocolo_entrega'
+    )
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField()
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.pk, self.protocolo_entrega.pk, self.produto)

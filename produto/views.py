@@ -29,7 +29,6 @@ def produto_list(request):
     current_user = request.user
     # Filter the products based on the logged-in user
     products = Produto.objects.filter(funcionario=current_user)
-    
     search = request.GET.get('search')
     if search:
         products = products.filter(produto__icontains=search)
@@ -50,21 +49,30 @@ def produto_detail(request, pk):
 
 @login_required
 def produto_add(request):
-    form = ProdutoForm(request.POST or None)
-    template_name = 'produto_form2.html'
+    template_name = 'produto_form.html'
+    
     if request.method == 'POST':
+        form = ProdutoForm(request.POST)
+        
         if form.is_valid():
-            form.save()
+            # Crie uma instância do Produto, associando o funcionário ao usuário logado
+            produto = form.save(commit=False)
+            produto.funcionario = request.user
+            teste = produto.funcionario
+            print(teste)
+            produto.save()
             return HttpResponseRedirect(reverse('produto:produto_list'))
+    else:
+        form = ProdutoForm()
 
     context = {'form': form}
     return render(request, template_name, context)
-
 
 class ProdutoCreate(LoginRequiredMixin, CreateView):
     model = Produto
     template_name = 'produto_form.html'
     form_class = ProdutoForm
+
 
 class ProdutoUpdate(LoginRequiredMixin, UpdateView):
 

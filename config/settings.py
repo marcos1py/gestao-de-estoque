@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 LOGIN_URL = '/user/login/'
 
-
 # Application definition
         
 INSTALLED_APPS = [
@@ -56,8 +55,10 @@ INSTALLED_APPS = [
     'chartjs',
     'empresas',
 ]
+
 AUTH_USER_MODEL = 'empresas.User'
 ROOT_URLCONF = 'empresas.urls'
+
 # Configuração do Django Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

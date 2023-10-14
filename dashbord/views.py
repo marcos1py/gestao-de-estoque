@@ -10,12 +10,16 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(request):
+    current_user = request.user
 
-    
-    produtos_os_produtos = EstoqueItens.objects.annotate(max_quantidade=Max('estoque'))
-    
+# Filtrando EstoqueItens onde funcionario é igual ao usuário atual
+    produtos_os_produtos = EstoqueItens.objects.filter(funcionario=current_user).annotate(max_quantidade=Max('estoque'))
     produto_mais_vendido = produtos_os_produtos.order_by('max_quantidade').first()
 
+    # Filtrando Produto onde funcionario é igual ao usuário atual
+    produtos_estoque = Produto.objects.filter(funcionario=current_user).annotate(max_quantidade=Max('estoque_minimo'))
+    produtos_acabando = produtos_estoque.order_by('max_quantidade').first()
+    
     produto1 = "Coca"
     produto2 = "Garana"
     produto3 = "H2o"
@@ -25,8 +29,7 @@ def index(request):
         "produtoDestaque":f"{produto_mais_vendido}",
         "faturamentoMensal":"Agua",    
         "despesasMensal":"Agua",    
-        "despesasMensal":"Agua", 
-        "produtoMenosVendido":f"{produto_mais_vendido}",
+        "produtosAcabando":f"{produtos_acabando}", 
         
         'produto1':produto1,
         'produto2':produto2,

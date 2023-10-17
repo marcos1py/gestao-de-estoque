@@ -48,7 +48,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center" style="color: #00ff6e;">
                                         <div class="col mr-2">
-                                            <div class="h5 mb-0 font-weight-bold text-center">$80,000</div>
+                                            <div class="h5 mb-0 font-weight-bold text-center"> $ {{faturamentoMensal}} </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-money fa-2x" style="color: #00ff6e;"></i>
@@ -59,7 +59,7 @@
                         </div>
 
 
-                        
+                        <!-- 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="sub-titulo text-xs font-weight-bold   text-uppercase text-center mb-1">Despesas Do Mes</div>
                             <div class="card bordinha border-dark custom-shadow h-700 py-2">
@@ -77,6 +77,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="sub-titulo text-xs font-weight-bold   text-uppercase text-center mb-1">Produto acabando</div>
@@ -85,7 +86,7 @@
                                     <div class="row no-gutters align-items-center " style="color: #830000;">
                                         <div class="col mr-2" >       
 
-                                            <div class="h5 text-center mb-0 font-weight-bold">Agua</div>
+                                            <div class="h5 text-center mb-0 font-weight-bold">{{produtosAcabando}}</div>
                                         </div>
                                         <div class="col-auto">
                                             
@@ -132,30 +133,26 @@
         </div>
     </div>
 </body>
+{{contagem_por_mes_nome.Outubro}}
 {% endblock content %}
 {% block js %}
     <script>
-        var chart = bb.generate({
-            data: {
+    var chart = bb.generate({
+        data: {
             columns: [
-                ["{{produto1}}", 11],
-                ["{{produto2}}", 2],
-                ["{{produto3}}", 3],
+                ["{{produto1}}", {{valorProduto1}}],
+                ["{{produto2}}", {{valorProduto2}}],
+                ["{{produto3}}", {{valorProduto3}}],
             ],
             type: "donut",
-            onclick: function (d, i) {
-                console.log("onclick", d, i);
-            },
-            onover: function (d, i) {
-                console.log("onover", d, i);
-            },
-            onout: function (d, i) {
-                console.log("onout", d, i);
-            },
-            },
+        },
 
-            bindto: "#donut-chart",
-        });
+        bindto: "#donut-chart",
+    });
+    var legend = document.querySelector('.c3-legend-item');
+    if (legend) {
+        legend.style.display = 'none';
+    }
     var ctx = document.getElementById("myChart").getContext("2d");
     var myChart = new Chart(ctx, {
         type: "line",
@@ -177,7 +174,7 @@
             datasets: [
                 {   
                     label: "2023",
-                    data: [1000, 1500, 1200, 2000, 2500, 1800, 2200, 3000, 2800, 3500, 4000, 3800],
+                    data: [{% for contagem in contagens_mensais %}{% if not contagem == 0 %}{{contagem}},{% else %}null,{% endif %}{% endfor %}],
                     borderColor: "rgba(153, 205, 51, 1)", // Cor da linha
                     borderWidth: 3, // Largura da linha
                     fill: false, // Não preencher a área abaixo da linha

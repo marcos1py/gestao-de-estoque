@@ -152,6 +152,30 @@ span.required:after {
   background: #f1f8ff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adicione sombra aqui */
 }
+.message {
+  max-width: 600px;
+  text-align: center;
+}
+
+.message.success {
+  background: rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(0, 255, 0, 90%);
+}
+
+.message.error {
+  background: rgba(255, 0, 0, 0.3);
+  border: 1px solid rgba(255, 0, 0, 90%);
+}
+
+.message.warning {
+  background: rgba(255, 255, 0, 0.3);
+  border: 1px solid rgba(255, 255, 0, 90%);
+}
+
+.message.info {
+  background: rgba(0, 0, 255, 0.3);
+  border: 1px solid rgba(0, 0, 255, 0.3);
+}
 
 
 .input-group {
@@ -176,4 +200,58 @@ span.required:after {
   background-position: 10px center; /* Ajuste conforme necessário */
   background-repeat: no-repeat;
   padding-left: 40px; /* Ajuste conforme necessário */
+}
+.register-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 7px;
+  padding: 40px;
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+  gap: 5px;
+}
+
+.register-form h1 {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 2.3em;
+}
+
+.register-form p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.register-form input {
+  padding: 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  border-radius: 4px;
+  transition: all linear 160ms;
+  outline: none;
+}
+
+.register-form input:focus {
+  border: 1px solid #256ff7;
+}
+
+.register-form label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.register-form a {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #555;
+  transition: all linear 160ms;
+}
+
+.register-form a:hover {
+  color: #2568f7;
 }

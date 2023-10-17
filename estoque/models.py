@@ -72,7 +72,7 @@ class EstoqueItens(models.Model):
         ordering = ('pk',)
 
     def __str__(self):
-        return '{} - {} - {}'.format(self.pk, self.estoque.pk, self.produto)
+        return '{}'.format(self.produto)
 
 
 class ProtocoloEntrega(TimeStampedModel):

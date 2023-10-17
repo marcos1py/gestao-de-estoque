@@ -17,7 +17,7 @@ from .models import (
     ProtocoloEntrega
 )
 
-
+@login_required
 def estoque_entrada_list(request):
     template_name = 'estoque_list.html'
     # Get the currently logged-in user
@@ -42,6 +42,7 @@ class EstoqueEntradaList(ListView):
         context['url_add'] = 'estoque:estoque_entrada_add'
         return context
 
+@login_required
 
 def estoque_entrada_detail(request, pk):
     template_name = 'estoque_detail.html'
@@ -57,7 +58,7 @@ class EstoqueDetail(DetailView):
     model = Estoque
     template_name = 'estoque_detail.html'
 
-
+@login_required
 def dar_baixa_estoque(form):
     # Pega os produtos a partir da instância do formulário (Estoque).
     produtos = form.estoques.all()
@@ -67,7 +68,7 @@ def dar_baixa_estoque(form):
         produto.save()
     print('Estoque atualizado com sucesso.')
 
-
+@login_required
 def estoque_add(request, form_inline, template_name, movimento, url):
     estoque_form = Estoque()
     item_estoque_formset = inlineformset_factory(
@@ -113,7 +114,7 @@ def estoque_entrada_add(request):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
     return render(request, template_name, context)
 
-
+@login_required
 def estoque_saida_list(request):
     template_name = 'estoque_list.html'
     # Get the currently logged-in user
@@ -127,7 +128,7 @@ def estoque_saida_list(request):
     }
     return render(request, template_name, context)
 
-
+@login_required
 class EstoqueSaidaList(ListView):
     model = EstoqueSaida
     template_name = 'estoque_list.html'
@@ -179,7 +180,7 @@ def protocolo_de_entrega_detail(request, pk):
     }
     return render(request, template_name, context)
 
-
+@login_required
 def dar_baixa_no_estoque_com_protocolo_de_entrega(request, pk):
     entrega = ProtocoloEntrega.objects.get(pk=pk)
 

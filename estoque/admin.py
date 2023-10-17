@@ -8,7 +8,6 @@ from .models import (
     ProtocoloEntregaItens
 )
 
-
 class EstoqueItensInline(admin.TabularInline):
     model = EstoqueItens
     extra = 0

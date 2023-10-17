@@ -1,9 +1,13 @@
 {% block content %}
 <div class="testando">
     <div class="page">
-        <form action="{{ form_action }}" method="POST" class="formLogin">
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor%}
+        <form action="{% url 'dashbord:register' %}" method="POST" class="formLogin">
+
             {% csrf_token %}
-            <h1>Login</h1>
+            <h1>{{titulo}}</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
             {% for field in form %}
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>

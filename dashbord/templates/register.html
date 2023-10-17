@@ -1,10 +1,13 @@
+{% extends "base.html" %}
 {% block content %}
+  
 <div class="testando">
     <div class="page">
         {% for message in messages %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor%}
-        <form action="{{ form_action }}" method="POST" class="formLogin">
+        <form action="{% url 'dashbord:register' %}" method="POST" class="register-form">
+
             {% csrf_token %}
             <h1>{{titulo}}</h1>
             <p>Digite os seus dados de acesso no campo abaixo.</p>
@@ -16,11 +19,10 @@
                     <p class="help-text">{{ field.help_text }}</p>
                 {% endif %}
             {% endfor %}
-            
             <button class="btn btn-primary" type="submit">Acessar</button>
-            <a href="{% url "dashbord:register" %}">Primeiro Acesso?</a>
         </form>
-        
     </div>
 </div>
 {% endblock content %}
+
+  

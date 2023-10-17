@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import CreateView, ListView, UpdateView
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -38,6 +39,16 @@ def produto_list(request):
     }
     
     return render(request, template_name, context)
+
+@login_required
+def excluir_produto(request, produto_id):
+    produto = get_object_or_404(Produto, id=produto_id)
+    if request.method == 'POST':
+        produto.delete()
+        return redirect('produto:produto_list') 
+    return render(request, 'produto_list.html')
+
+
 @login_required
 def produto_detail(request, pk):
     template_name = "produto_detail.html"

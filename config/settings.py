@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--zm%bzklnq3kr$6o5yi(!7xuggwdpew8af@%bilhxe4v$$0yq&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 LOGIN_URL = '/user/login/'
 
 # Application definition
@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     
-    'djoser',  
     'estoque', 
     #'authentication',
     'widget_tweaks',
@@ -72,9 +71,7 @@ REST_FRAMEWORK = {
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
-DJOSER = {
-    'LOGIN_FIELD': 'email',  # Configure o campo de login conforme sua implementação
-}
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
